@@ -2,10 +2,12 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const _ = require("underscore");
 const Usuario = require("../modelos/usuario");
+const { verificaToken } = require("../middlewares/autenticacion");
+
 const app = express();
 
 // Ruta get
-app.get("/usuarios", function (req, res) {
+app.get("/usuarios", verificaToken, function (req, res) {
   let desde = req.query.desde || 0;
   desde = Number(desde);
   let limite = req.query.limite || 5;
